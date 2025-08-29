@@ -1,12 +1,5 @@
-# Dependencies
 node_modules/
-
-# macOS
+downloads/
 .DS_Store
-
-# ESLint and Prettier cache
 .eslintcache
 .prettier-cache
-
-# Application downloads
-downloads/
