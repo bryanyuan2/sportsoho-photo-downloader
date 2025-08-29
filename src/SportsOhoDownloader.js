@@ -24,9 +24,9 @@ class SportsOhoDownloader {
         this.axiosInstance = axios.create({
             headers: {
                 'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             },
-            timeout: 30000, // 30 seconds timeout
+            timeout: 30000 // 30 seconds timeout
         });
 
         // Ensure download directory exists
@@ -127,7 +127,9 @@ class SportsOhoDownloader {
     async loadDownloadedPhotosFromLog() {
         try {
             if (!this.logFilePath || !(await fs.pathExists(this.logFilePath))) {
-                console.log('No existing log file found, starting fresh download');
+                console.log(
+                    'No existing log file found, starting fresh download'
+                );
                 return;
             }
 
@@ -164,7 +166,9 @@ class SportsOhoDownloader {
         try {
             // Check if log file already exists
             if (await fs.pathExists(this.logFilePath)) {
-                console.log(`Log file already exists: ${path.basename(this.logFilePath)}`);
+                console.log(
+                    `Log file already exists: ${path.basename(this.logFilePath)}`
+                );
                 // Load previously downloaded photos from log
                 await this.loadDownloadedPhotosFromLog();
                 return;
@@ -238,7 +242,9 @@ class SportsOhoDownloader {
             portfolioDiv = $('div').filter(function () {
                 const classes = $(this).attr('class');
                 return (
-                    classes && classes.includes('portfolio') && classes.includes('grid-container')
+                    classes &&
+                    classes.includes('portfolio') &&
+                    classes.includes('grid-container')
                 );
             });
         }
@@ -257,10 +263,12 @@ class SportsOhoDownloader {
 
         // If no images found in main container, try to find in portfolio-image divs
         if (images.length === 0) {
-            const portfolioImageDivs = portfolioDiv.find('div').filter(function () {
-                const classes = $(this).attr('class');
-                return classes && classes.includes('portfolio-image');
-            });
+            const portfolioImageDivs = portfolioDiv
+                .find('div')
+                .filter(function () {
+                    const classes = $(this).attr('class');
+                    return classes && classes.includes('portfolio-image');
+                });
             console.log(
                 `Searching in portfolio-image divs, found ${portfolioImageDivs.length} containers`
             );
@@ -272,12 +280,17 @@ class SportsOhoDownloader {
         images.each((index, element) => {
             const $img = $(element);
             // Get image source URL
-            let src = $img.attr('src') || $img.attr('data-src') || $img.attr('data-original');
+            let src =
+                $img.attr('src') ||
+                $img.attr('data-src') ||
+                $img.attr('data-original');
 
             if (src) {
                 // Skip irrelevant images (like logos, advertisements, etc.)
                 const skipWords = ['logo', 'advertisement', 'banner', 'icon'];
-                if (skipWords.some(word => src.toLowerCase().includes(word))) {
+                if (
+                    skipWords.some((word) => src.toLowerCase().includes(word))
+                ) {
                     return; // continue
                 }
 
@@ -344,7 +357,9 @@ class SportsOhoDownloader {
         try {
             // Check if photo was already downloaded according to CSV log
             if (this.downloadedPhotos.has(photoUrl)) {
-                console.log(`Photo already downloaded according to log, skipping: ${photoUrl}`);
+                console.log(
+                    `Photo already downloaded according to log, skipping: ${photoUrl}`
+                );
                 downloadSuccess = true;
 
                 // Log successful skip (don't duplicate in CSV)
@@ -358,9 +373,14 @@ class SportsOhoDownloader {
             // If no file extension, try to infer from Content-Type
             if (!filename || !filename.includes('.')) {
                 try {
-                    const headResponse = await this.axiosInstance.head(photoUrl);
-                    const contentType = headResponse.headers['content-type'] || '';
-                    if (contentType.includes('jpeg') || contentType.includes('jpg')) {
+                    const headResponse =
+                        await this.axiosInstance.head(photoUrl);
+                    const contentType =
+                        headResponse.headers['content-type'] || '';
+                    if (
+                        contentType.includes('jpeg') ||
+                        contentType.includes('jpg')
+                    ) {
                         filename = `image_${this.downloadedPhotos.size}.jpg`;
                     } else if (contentType.includes('png')) {
                         filename = `image_${this.downloadedPhotos.size}.png`;
@@ -379,7 +399,7 @@ class SportsOhoDownloader {
             // Download photo (no longer check if file exists on disk)
             console.log(`Downloading: ${filename}`);
             const response = await this.axiosInstance.get(photoUrl, {
-                responseType: 'stream',
+                responseType: 'stream'
             });
 
             // Write file
@@ -393,15 +413,23 @@ class SportsOhoDownloader {
                     downloadSuccess = true;
 
                     // Log successful download
-                    this.logPhotoDownload(this.currentPageNumber, photoUrl, downloadSuccess)
+                    this.logPhotoDownload(
+                        this.currentPageNumber,
+                        photoUrl,
+                        downloadSuccess
+                    )
                         .then(() => resolve(true))
                         .catch(() => resolve(true)); // Don't fail download due to log error
                 });
-                writer.on('error', error => {
+                writer.on('error', (error) => {
                     downloadSuccess = false;
 
                     // Log failed download
-                    this.logPhotoDownload(this.currentPageNumber, photoUrl, downloadSuccess)
+                    this.logPhotoDownload(
+                        this.currentPageNumber,
+                        photoUrl,
+                        downloadSuccess
+                    )
                         .then(() => reject(error))
                         .catch(() => reject(error)); // Don't fail download due to log error
                 });
@@ -411,7 +439,11 @@ class SportsOhoDownloader {
             downloadSuccess = false;
 
             // Log failed download
-            await this.logPhotoDownload(this.currentPageNumber, photoUrl, downloadSuccess);
+            await this.logPhotoDownload(
+                this.currentPageNumber,
+                photoUrl,
+                downloadSuccess
+            );
             return false;
         }
     }
@@ -445,7 +477,9 @@ class SportsOhoDownloader {
                 this.currentPageNumber++;
             }
 
-            console.log(`Processing page ${this.currentPageNumber}: ${currentUrl}`);
+            console.log(
+                `Processing page ${this.currentPageNumber}: ${currentUrl}`
+            );
 
             // Get page content
             const $ = await this.getPageContent(currentUrl);
@@ -504,7 +538,7 @@ class SportsOhoDownloader {
      * @returns {Promise<void>}
      */
     sleep(ms) {
-        return new Promise(resolve => global.setTimeout(resolve, ms));
+        return new Promise((resolve) => global.setTimeout(resolve, ms));
     }
 }
 

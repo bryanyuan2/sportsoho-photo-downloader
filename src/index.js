@@ -55,7 +55,7 @@ process.on('unhandledRejection', (reason, _promise) => {
     process.exit(1);
 });
 
-process.on('uncaughtException', error => {
+process.on('uncaughtException', (error) => {
     console.error('Uncaught Exception:', error);
     process.exit(1);
 });
@@ -67,8 +67,11 @@ process.on('SIGINT', () => {
 });
 
 // If running as main module or being required from bin
-if (require.main === module || process.argv[1].includes('sportsoho-downloader')) {
-    main().catch(error => {
+if (
+    require.main === module ||
+    process.argv[1].includes('sportsoho-downloader')
+) {
+    main().catch((error) => {
         console.error('Program execution failed:', error);
         process.exit(1);
     });
