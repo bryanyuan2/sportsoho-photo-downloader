@@ -9,6 +9,7 @@ The SportsOho Photo Downloader now automatically creates organized folders for e
 The program creates folders using the format: `{albumId}-{title}`
 
 ### Examples:
+
 - URL: `https://www.sportsoho.com/pg/photos/album/11083369/`
 - Album ID: `11083369`
 - Title: `Swimming Competition` (extracted from page)
@@ -18,9 +19,9 @@ The program creates folders using the format: `{albumId}-{title}`
 
 1. **URL Analysis**: Extracts album ID from the URL using regex pattern `/album/(\d+)/?/`
 2. **Title Extraction**: Searches for page title in these elements (in order):
-   - `.content_area_user_title`
-   - `h1` (first occurrence)
-   - `title` element
+    - `.content_area_user_title`
+    - `h1` (first occurrence)
+    - `title` element
 3. **Folder Creation**: Combines ID and cleaned title to create folder name
 4. **Download Organization**: All photos from the album are saved in this dedicated folder
 
@@ -35,6 +36,7 @@ The program creates folders using the format: `{albumId}-{title}`
 ### Title Cleaning:
 
 The title is automatically cleaned for file system compatibility:
+
 - Removes invalid characters: `<>:"/\\|?*`
 - Replaces them with safe characters (usually `-`)
 - Handles empty or missing titles with fallback to `'untitled'`

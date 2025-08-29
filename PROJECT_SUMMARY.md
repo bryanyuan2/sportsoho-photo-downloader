@@ -5,28 +5,28 @@
 ### ✅ Completed Features
 
 1. **Core Functionality**
-   - ✅ Python to Node.js conversion
-   - ✅ Portfolio container detection (`div#portfolio`)
-   - ✅ Pagination handling
-   - ✅ Original size photo downloads (`/medium/` → `/original/`)
-   - ✅ Duplicate prevention
+    - ✅ Python to Node.js conversion
+    - ✅ Portfolio container detection (`div#portfolio`)
+    - ✅ Pagination handling
+    - ✅ Original size photo downloads (`/medium/` → `/original/`)
+    - ✅ Duplicate prevention
 
 2. **npm Package Integration**
-   - ✅ Complete package.json configuration
-   - ✅ Global CLI installation support
-   - ✅ Commander.js CLI interface
-   - ✅ Professional help documentation
+    - ✅ Complete package.json configuration
+    - ✅ Global CLI installation support
+    - ✅ Commander.js CLI interface
+    - ✅ Professional help documentation
 
 3. **Internationalization**
-   - ✅ Full English translation of all user-facing text
-   - ✅ Clean, professional error messages
-   - ✅ English documentation (README.md)
+    - ✅ Full English translation of all user-facing text
+    - ✅ Clean, professional error messages
+    - ✅ English documentation (README.md)
 
 4. **Album Organization (NEW)**
-   - ✅ Automatic album ID extraction from URLs
-   - ✅ Page title extraction and cleaning
-   - ✅ Organized folder structure: `{albumId}-{title}`
-   - ✅ Seamless integration with existing download workflow
+    - ✅ Automatic album ID extraction from URLs
+    - ✅ Page title extraction and cleaning
+    - ✅ Organized folder structure: `{albumId}-{title}`
+    - ✅ Seamless integration with existing download workflow
 
 ### 🏗️ Technical Architecture
 
@@ -75,31 +75,33 @@ sportsoho-downloader https://www.sportsoho.com/pg/photos/album/11083369/
 ### 🛠️ Key Implementations
 
 1. **Album ID Extraction**
-   ```javascript
-   extractAlbumId(url) {
-       const match = url.match(/\/album\/(\d+)\/?/);
-       return match ? match[1] : 'unknown';
-   }
-   ```
+
+    ```javascript
+    extractAlbumId(url) {
+        const match = url.match(/\/album\/(\d+)\/?/);
+        return match ? match[1] : 'unknown';
+    }
+    ```
 
 2. **Title Extraction with Fallbacks**
-   ```javascript
-   extractAlbumTitle($) {
-       let title = $('.content_area_user_title').text().trim() ||
-                   $('h1').first().text().trim() ||
-                   $('title').text().trim();
-       return title.replace(/[<>:"/\\|?*]/g, '-').trim() || 'untitled';
-   }
-   ```
+
+    ```javascript
+    extractAlbumTitle($) {
+        let title = $('.content_area_user_title').text().trim() ||
+                    $('h1').first().text().trim() ||
+                    $('title').text().trim();
+        return title.replace(/[<>:"/\\|?*]/g, '-').trim() || 'untitled';
+    }
+    ```
 
 3. **Organized Download Path**
-   ```javascript
-   downloadPhoto(photoUrl) {
-       const downloadPath = this.albumFolder || this.downloadDir;
-       const filepath = path.join(downloadPath, filename);
-       // ... download logic
-   }
-   ```
+    ```javascript
+    downloadPhoto(photoUrl) {
+        const downloadPath = this.albumFolder || this.downloadDir;
+        const filepath = path.join(downloadPath, filename);
+        // ... download logic
+    }
+    ```
 
 ### 📊 Quality Assurance
 
@@ -114,6 +116,7 @@ sportsoho-downloader https://www.sportsoho.com/pg/photos/album/11083369/
 **Status: COMPLETE ✅**
 
 All requested features have been successfully implemented:
+
 1. ✅ Python → Node.js conversion
 2. ✅ npm packaging with global CLI
 3. ✅ English translation

@@ -100,11 +100,13 @@ The program creates a detailed CSV log file for each album download, providing:
 ### Log Format
 
 The CSV file contains three columns:
+
 - `Page`: Sequential page number (starting from 1 for the given URL)
 - `URL`: Full photo URL
 - `Downloaded`: Y for successful download, N for failed download
 
 ### Example Log Content
+
 ```csv
 Page,URL,Downloaded
 1,https://www.sportsoho.com/pg/photos/medium/photo1.jpg,Y
@@ -114,7 +116,9 @@ Page,URL,Downloaded
 ```
 
 ### Log File Location
+
 The log file is saved in the album folder with the same name as the folder:
+
 ```
 downloads/11083369-Swimming_Competition/
 ├── photo1.jpg
@@ -161,6 +165,7 @@ sportsoho-photo-downloader/
 ## Error Handling
 
 The program includes comprehensive error handling:
+
 - Network connection errors
 - File write errors
 - HTML parsing errors

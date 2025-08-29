@@ -1,0 +1,44 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "prettier"
+    ],
+    "env": {
+        "node": true,
+        "es2022": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "globals": {
+        "console": "readonly",
+        "process": "readonly",
+        "__dirname": "readonly",
+        "__filename": "readonly",
+        "Buffer": "readonly",
+        "global": "readonly",
+        "module": "readonly",
+        "require": "readonly",
+        "exports": "readonly"
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "no-unused-vars": [
+            "error",
+            { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+        ],
+        "no-console": "off",
+        "prefer-const": "error",
+        "no-var": "error",
+        "indent": "off",
+        "quotes": "off",
+        "semi": "off",
+        "comma-dangle": "off",
+        "max-len": "off"
+    },
+    "ignorePatterns": ["node_modules/", "downloads/", "coverage/", "*.min.js"]
+}
