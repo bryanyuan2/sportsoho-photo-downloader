@@ -1,45 +1,57 @@
 {
-  "name": "sportsoho-photo-downloader",
-  "version": "1.1.0",
-  "description": "A Node.js tool to download photo albums from sportsoho.com with pagination support and CSV logging",
-  "main": "src/index.js",
-  "bin": {
-    "sportsoho-downloader": "./bin/sportsoho-downloader.js"
-  },
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "node src/index.js",
-    "build": "echo 'No build step required'",
-    "test": "echo 'Error: no test specified' && exit 1",
-    "install-global": "npm install -g ."
-  },
-  "keywords": [
-    "photo",
-    "downloader",
-    "sportsoho",
-    "scraper",
-    "album",
-    "pagination"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.6.0",
-    "cheerio": "^1.0.0-rc.12",
-    "commander": "^11.0.0",
-    "fs-extra": "^11.1.1",
-    "path": "^0.12.7",
-    "url": "^0.11.3"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bryanyuan2/sportsoho-photo-downloader.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bryanyuan2/sportsoho-photo-downloader/issues"
-  },
-  "homepage": "https://github.com/bryanyuan2/sportsoho-photo-downloader#readme"
+    "name": "sportsoho-photo-downloader",
+    "version": "1.1.0",
+    "description": "A Node.js tool to download photo albums from sportsoho.com with pagination support and CSV logging",
+    "main": "src/index.js",
+    "bin": {
+        "sportsoho-downloader": "./bin/sportsoho-downloader.js"
+    },
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "node src/index.js",
+        "build": "echo 'No build step required'",
+        "test": "echo 'Error: no test specified' && exit 1",
+        "install-global": "npm install -g .",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint-and-format": "npm run lint:fix && npm run format"
+    },
+    "keywords": [
+        "photo",
+        "downloader",
+        "sportsoho",
+        "scraper",
+        "album",
+        "pagination"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.6.0",
+        "cheerio": "^1.0.0-rc.12",
+        "commander": "^11.0.0",
+        "fs-extra": "^11.1.1",
+        "path": "^0.12.7",
+        "url": "^0.11.3"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bryanyuan2/sportsoho-photo-downloader.git"
+    },
+    "bugs": {
+        "url": "https://github.com/bryanyuan2/sportsoho-photo-downloader/issues"
+    },
+    "homepage": "https://github.com/bryanyuan2/sportsoho-photo-downloader#readme",
+    "devDependencies": {
+        "@eslint/js": "^9.34.0",
+        "eslint": "^9.34.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.4",
+        "prettier": "^3.6.2"
+    }
 }

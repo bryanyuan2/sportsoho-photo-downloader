@@ -3,3 +3,7 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# ESLint and Prettier cache
+.eslintcache
+.prettier-cache

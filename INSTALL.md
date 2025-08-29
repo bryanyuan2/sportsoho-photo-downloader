@@ -3,6 +3,7 @@
 ## Node.js Version SportsOho Photo Downloader
 
 ### System Requirements
+
 - Node.js >= 16.0.0
 - npm >= 7.0.0
 
@@ -40,6 +41,7 @@ npm run start https://www.sportsoho.com/pg/photos/album/11083369/
 ```
 
 ### Features
+
 - ✅ Automatically download original size photos (original vs medium)
 - ✅ Automatically handle all pagination
 - ✅ Avoid duplicate downloads
@@ -48,6 +50,7 @@ npm run start https://www.sportsoho.com/pg/photos/album/11083369/
 - ✅ Can be globally installed
 
 ### Uninstall
+
 ```bash
 npm uninstall -g sportsoho-photo-downloader
 ```
