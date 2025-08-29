@@ -120,6 +120,41 @@ class SportsOhoDownloader {
     }
     
     /**
+     * Load downloaded photos from existing CSV log file
+     * @returns {Promise<void>}
+     */
+    async loadDownloadedPhotosFromLog() {
+        try {
+            if (!this.logFilePath || !(await fs.pathExists(this.logFilePath))) {
+                console.log('No existing log file found, starting fresh download');
+                return;
+            }
+            
+            const logContent = await fs.readFile(this.logFilePath, 'utf8');
+            const lines = logContent.split('\n');
+            
+            // Skip header line and empty lines
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const [pageNumber, photoUrl, downloaded] = line.split(',');
+                
+                // Only add to downloaded set if download was successful
+                if (downloaded === 'Y' && photoUrl) {
+                    this.downloadedPhotos.add(photoUrl);
+                }
+            }
+            
+            console.log(`Loaded ${this.downloadedPhotos.size} previously downloaded photos from log`);
+            
+        } catch (error) {
+            console.error(`Failed to load download log: ${error.message}`);
+            // Don't throw error, continue with fresh download
+        }
+    }
+
+    /**
      * Initialize CSV log file with headers
      * @returns {Promise<void>}
      */
@@ -128,6 +163,8 @@ class SportsOhoDownloader {
             // Check if log file already exists
             if (await fs.pathExists(this.logFilePath)) {
                 console.log(`Log file already exists: ${path.basename(this.logFilePath)}`);
+                // Load previously downloaded photos from log
+                await this.loadDownloadedPhotosFromLog();
                 return;
             }
             
@@ -299,6 +336,15 @@ class SportsOhoDownloader {
         let downloadSuccess = false;
         
         try {
+            // Check if photo was already downloaded according to CSV log
+            if (this.downloadedPhotos.has(photoUrl)) {
+                console.log(`Photo already downloaded according to log, skipping: ${photoUrl}`);
+                downloadSuccess = true;
+                
+                // Log successful skip (don't duplicate in CSV)
+                return true;
+            }
+            
             // Parse filename
             const urlObj = new URL(photoUrl);
             let filename = path.basename(urlObj.pathname);
@@ -324,18 +370,7 @@ class SportsOhoDownloader {
             const downloadPath = this.albumFolder || this.downloadDir;
             const filepath = path.join(downloadPath, filename);
             
-            // If file already exists, skip
-            if (await fs.pathExists(filepath)) {
-                console.log(`File already exists, skipping: ${filename}`);
-                this.downloadedPhotos.add(photoUrl);
-                downloadSuccess = true;
-                
-                // Log successful skip
-                await this.logPhotoDownload(this.currentPageNumber, photoUrl, downloadSuccess);
-                return true;
-            }
-            
-            // Download photo
+            // Download photo (no longer check if file exists on disk)
             console.log(`Downloading: ${filename}`);
             const response = await this.axiosInstance.get(photoUrl, {
                 responseType: 'stream'
